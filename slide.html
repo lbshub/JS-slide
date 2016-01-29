@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>图片切换/轮播/焦点图 绝对定位方式</title>
+
+	<style>
+		*{margin: 0; padding: 0;}
+		ul, li{list-style: none;}
+		a{outline: none; text-decoration: none;}
+		a img{border: none;}
+		body{font-family: "Microsoft Yahei";}
+		
+		.wrapper{position: relative; margin: 50px auto; width:670px; height:240px; overflow: hidden;}
+		
+		.slidePic{position:relative; width:670px; height:240px; overflow:hidden;}
+		.slidePic li{display: none; position:absolute; width:670px; height:240px;}
+		.slidePic li img{vertical-align: top; width:670px; height:240px;}
+		.slidePic li span{position: absolute; display: block; width:670px; height:240px; line-height: 240px; text-align: center; font-size: 100px; color:#fff; font-weight: bold;}
+		
+		.slideNum{ position:absolute; left:50%;  bottom:5px; width: 300px; height: 24px; margin-left: -150px; text-align: center;}
+		.slideNum li{display: inline-block; margin:0 3px; width:24px; height:24px; line-height: 24px;  text-align:center; background:#999; color:#FFF; cursor:pointer; border-radius:12px; font-size: 14px; *display: inline; *padding: 5px 8px; }
+		.slideNum li.current{background:#F00; cursor:default;}
+
+		.wrapper .leftBtn, .wrapper .rightBtn{ display: block; width: 30px; height: 58px; position: absolute; top: 50%; margin-top: -29px; z-index: 5; background: url(images/arrow.png) no-repeat; font-size:0; line-height:0; color:rgba(0,0,0,0); opacity: .8; filter: alpha(opacity=80);}
+		.wrapper .leftBtn{left: 5px;}
+		.wrapper .rightBtn{right: 5px; background-position: -30px 0;}
+		.wrapper .leftBtn:hover, .wrapper a.rightBtn:hover{opacity: 1; filter:alpha(opacity=100);}
+		.wrapper .leftBtn:hover{background-position: 0 -58px;} 
+		.wrapper .rightBtn:hover{background-position: -30px -58px;}
+
+	</style>
+
+</head>
+<body>
+
+	<div class="wrapper" id="wrapper">
+		<ul class="slidePic">
+			<li><span>1</span><a href="#01"><img src="images/01.jpg" /></a></li>
+			<li><span>2</span><a href="#02"><img src="images/02.jpg" /></a></li>
+			<li><span>3</span><a href="#03"><img src="images/03.jpg" /></a></li>
+		</ul>
+		<a href="javascript:;" class="leftBtn" id="leftBtn">&lt;</a>
+		<a href="javascript:;" class="rightBtn" id="rightBtn">&gt;</a>
+	</div>
+
+	<div class="wrapper" id="wrapper2">
+		<ul class="slidePic">
+			<li><span>1</span><a href="#04"><img src="images/blank.gif" data-src="images/04.jpg" /></a></li>
+			<li><span>2</span><a href="#05"><img src="images/blank.gif" data-src="images/05.jpg" /></a></li>
+			<li><span>3</span><a href="#06"><img src="images/blank.gif" data-src="images/06.jpg" /></a></li>
+		</ul>
+		<a href="javascript:;" class="leftBtn" id="leftBtn2">&lt;</a>
+		<a href="javascript:;" class="rightBtn" id="rightBtn2">&gt;</a>
+	</div>
+
+	<script type="text/javascript" src="slide.min.js"></script>
+	<script type="text/javascript">
+		var leftBtn = document.getElementById('leftBtn'),
+			rightBtn = document.getElementById('rightBtn'),
+			mySlide = new Slide({
+				el: 'wrapper',
+				// index: 2,
+				pointClass: 'slideNum',
+				// pointEvent: 'mouseover',
+				auto: true,
+				delay: 4000,
+				duration: 500,
+				easing: 'easeInOut'
+			});
+		leftBtn.onclick = function() {
+			mySlide.slideLeft();
+		};
+		rightBtn.onclick = function() {
+			mySlide.slideRight();
+		};
+
+		var leftBtn2 = document.getElementById('leftBtn2'),
+			rightBtn2 = document.getElementById('rightBtn2'),
+			mySlide2 = new Slide({
+				el: 'wrapper2',
+				pointClass: 'slideNum',
+				pointEvent: 'mouseover',
+				lazyLoad: true,
+				attribute: 'data-src',
+				duration: 600,
+				easing: 'easeOut'
+			});
+		leftBtn2.onclick = function() {
+			mySlide2.slideLeft();
+		};
+		rightBtn2.onclick = function() {
+			mySlide2.slideRight();
+		};
+
+	</script>
+
+</body>
+</html>
